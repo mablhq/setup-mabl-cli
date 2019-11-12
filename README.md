@@ -2,13 +2,14 @@
 
 # setup-mabl-cli
 
-Github action to configure the [the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It installs the cli and
-
-This Action for [AWS](https://aws.amazon.com/) enables arbitrary actions for interacting with AWS services via [the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli).
+Github action to configure the
+[the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
+installs the cli and
 
 ## Inputs
 
-- `version` {string} {optional} The version of the CLI to install. Defaults to latest if not specified.
+- `version` {string} {optional} The version of the CLI to install. Defaults to
+  latest if not specified.
 - `workspace` {string} {otional} A mabl workspace id to set as default.
 
 ## Example workflow:
@@ -28,6 +29,8 @@ jobs:
         with:
           version: 0.1.2-beta
           workspace: V2pvHBJ-rprn1n3S4ELs3A-w
+        env:
+          MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
       - name: Download screenshots for test
         run: mabl export JourneyRun ar5vXBJ-rpan1nSs445s3A-jr -f screenshots.zip
       - name: Upload screenshots
@@ -39,4 +42,5 @@ jobs:
 
 ## License
 
-The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
+The Dockerfile and associated scripts and documentation in this project are
+released under the [MIT License](LICENSE).

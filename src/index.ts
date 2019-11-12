@@ -3,12 +3,12 @@ import * as exec from '@actions/exec';
 
 async function run() {
   const version = core.getInput('version', {required: false});
-  const workspace = core.getInput('workspace', {required: false});
+  // const workspace = core.getInput('workspace', {required: false});
 
   installCli(version);
-  if (workspace) {
-    configureWorkspace(workspace);
-  }
+  // if (workspace) {
+  //   configureWorkspace(workspace);
+  // }
 }
 
 function installCli(version: string) {
@@ -20,8 +20,8 @@ function installCli(version: string) {
   exec.exec(installCommand);
 }
 
-function configureWorkspace(workspace: string) {
-  exec.exec(`mabl config set workspace ${workspace} && mabl config list`);
-}
+// function configureWorkspace(workspace: string) {
+//   exec.exec(`mabl config set workspace ${workspace} && mabl config list`);
+// }
 
 run();
