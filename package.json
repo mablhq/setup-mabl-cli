@@ -1,0 +1,22 @@
+{
+  "name": "setup-mabl-cli",
+  "version": "0.0.1",
+  "description": "mabl github action to setup mabl CLI",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "tsc && mocha ./tests/_suite.js",
+    "build": "tsc",
+    "release": "npm install && npm run build && npm prune --production && git add -f node_modules/* && git add -f lib/*"
+  },
+  "author": "mabl",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.10",
+    "@types/q": "^1.5.2",
+    "@types/request-promise-native": "^1.0.16"
+  }
+}

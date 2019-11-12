@@ -1,0 +1,12 @@
+name: "Setup mabl CLI"
+description: "Register a deployment event with mabl and run associated tests"
+inputs:
+  version:
+    description: (optional) The version of the mabl CLI to install
+    required: false
+  workspace:
+    description: (optional) The id of the workspace to configure as default for the CLI
+    required: false
+runs:
+  using: "node12"
+  main: "lib/index.js"
