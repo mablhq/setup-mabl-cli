@@ -19,7 +19,7 @@ async function run() {
     core.setFailed('Please specify api key as an environment variable');
     return;
   }
-  authenticateWithApiKey(apiKey, nodePath);
+  // authenticateWithApiKey(apiKey, nodePath);
   // if (workspace) {
   // configureWorkspace(workspace);
   // }
