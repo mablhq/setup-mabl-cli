@@ -7,32 +7,25 @@ async function run() {
   // const workspace = core.getInput('workspace', {required: false});
   const apiKey: string | undefined = process.env.MABL_API_KEY;
 
-  if (!installCli(version)) {
+  const nodePath = findNode();
+
+  if (!nodePath) {
     return;
   }
+
+  installCli(version, nodePath);
 
   if (!apiKey) {
     core.setFailed('Please specify api key as an environment variable');
     return;
   }
-  authenticateWithApiKey(apiKey);
+  authenticateWithApiKey(apiKey, nodePath);
   // if (workspace) {
   // configureWorkspace(workspace);
   // }
 }
 
-function installCli(version: string): boolean {
-  const allNodeVersions = toolCache.findAllVersions('node');
-  if (!allNodeVersions) {
-    core.setFailed(
-      'No node version installed.  Please add a "actions/setup-node" step to your workflow or install a node version some other way.',
-    );
-    return false;
-  }
-  const nodeVersion = allNodeVersions[0];
-  const nodePath = toolCache.find('node', allNodeVersions[0]);
-  core.info(`Found node version ${nodeVersion}.  Installing mabl CLI`);
-
+function installCli(version: string, nodePath: string) {
   const installCommand = version
     ? 'npm install @mablhq/mabl-cli'
     : `npm install @mablhq/mabl-cli@${version}`;
@@ -47,9 +40,23 @@ function configureWorkspace(workspace: string) {
   exec.exec(`mabl config set workspace ${workspace} && mabl config list`);
 }
 
-function authenticateWithApiKey(apiKey?: string) {
+function findNode() {
+  const allNodeVersions = toolCache.findAllVersions('node');
+  if (!allNodeVersions) {
+    core.setFailed(
+      'No node version installed.  Please add a "actions/setup-node" step to your workflow or install a node version some other way.',
+    );
+    return;
+  }
+  const nodeVersion = allNodeVersions[0];
+  core.info(`Found node version ${nodeVersion}.  Installing mabl CLI`);
+
+  return nodeVersion;
+}
+
+function authenticateWithApiKey(apiKey: string, nodePath: string) {
   const command: string = `mabl auth activate-key ${apiKey}`;
-  exec.exec(command);
+  exec.exec(command, [], {cwd: nodePath});
 }
 
 run();
