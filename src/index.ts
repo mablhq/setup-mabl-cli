@@ -19,6 +19,9 @@ async function run() {
 }
 
 function installCli(version: string) {
+  const allNodeVersions = toolCache.findAllVersions('node');
+  console.log(`Versions of node available: ${allNodeVersions}`);
+
   const installCommand = version
     ? 'npm install @mablhq/mabl-cli'
     : `npm install @mablhq/mabl-cli@${version}`;

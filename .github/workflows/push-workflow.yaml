@@ -15,12 +15,10 @@ jobs:
         run: npm install
       - name: Compile typescript
         run: npm run build
-      - name: install cli
-        run: npm install -g @mablhq/mabl-cli
-      # - name: install mabl CLI
-      #   id: install-mabl-cli
-      #   uses: ./
-      #   env:
-      #     MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
+      - name: install mabl CLI
+        id: install-mabl-cli
+        uses: ./
+        env:
+          MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
       - name: list application
         run: mabl applications list
