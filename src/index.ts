@@ -7,7 +7,10 @@ async function run() {
   // const workspace = core.getInput('workspace', {required: false});
   const apiKey: string | undefined = process.env.MABL_API_KEY;
 
-  installCli(version);
+  if (!installCli(version)) {
+    return;
+  }
+
   if (!apiKey) {
     core.setFailed('Please specify api key as an environment variable');
     return;
@@ -18,16 +21,26 @@ async function run() {
   // }
 }
 
-function installCli(version: string) {
+function installCli(version: string): boolean {
   const allNodeVersions = toolCache.findAllVersions('node');
-  console.log(`Versions of node available: ${allNodeVersions}`);
+  if (!allNodeVersions) {
+    core.setFailed(
+      'No node version installed.  Please add a "actions/setup-node" step to your workflow or install a node version some other way.',
+    );
+    return false;
+  }
+  const nodeVersion = allNodeVersions[0];
+  const nodePath = toolCache.find('node', allNodeVersions[0]);
+  core.info(`Found node version ${nodeVersion}.  Installing mabl CLI`);
 
   const installCommand = version
     ? 'npm install @mablhq/mabl-cli'
     : `npm install @mablhq/mabl-cli@${version}`;
 
   //TODO:  Maybe listen for errors to fail the action if the install fails?
-  exec.exec(installCommand);
+  exec.exec(installCommand, [], {cwd: nodePath});
+
+  return false;
 }
 
 function configureWorkspace(workspace: string) {
