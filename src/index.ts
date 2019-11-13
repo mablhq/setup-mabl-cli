@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
+import * as toolCache from '@actions/tool-cache';
 
 async function run() {
   const version = core.getInput('version', {required: false});
