@@ -19,8 +19,8 @@ async function run() {
 
 function installCli(version: string) {
   const installCommand = version
-    ? 'npm install -g @mablhq/mabl-cli'
-    : `npm install -g @mablhq/mabl-cli@${version}`;
+    ? 'npm install @mablhq/mabl-cli'
+    : `npm install @mablhq/mabl-cli@${version}`;
 
   //TODO:  Maybe listen for errors to fail the action if the install fails?
   exec.exec(installCommand);
