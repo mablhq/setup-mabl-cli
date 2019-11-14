@@ -66,7 +66,7 @@ async function installCli(version: string, nodePath: string) {
   } catch (err) {
     console.log(err);
   }
-  exec.exec('ls', ['bin'], options);
+  exec.exec('cat', ['/opt/hostedtoolcache/node/12.13.0/x64/bin/mabl'], options);
   const whichMabl = await io.which('mabl');
   console.log(`mabl location: ${whichMabl}`);
   console.log(await io.which('mabl'));
