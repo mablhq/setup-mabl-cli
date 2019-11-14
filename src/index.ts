@@ -66,9 +66,9 @@ async function installCli(version: string, nodePath: string) {
   } catch (err) {
     console.log(err);
   }
-  exec.exec('ls', ['/opt/hostedtoolcache/node/12.13.0/x64/bin'], options);
+  exec.exec('which', ['mabl'], options);
   const whichMabl = await io.which('mabl');
-  console.log(`mabl location: ${whichMabl}`);
+  console.log(`location: ${whichMabl}`);
   console.log(await io.which('mabl'));
 
   return false;
@@ -92,7 +92,7 @@ function findNode() {
   return toolCache.find('node', nodeVersion);
 }
 
-function authenticateWithApiKey(apiKey: string, nodePath: string) {
+async function authenticateWithApiKey(apiKey: string, nodePath: string) {
   let myOutput = '';
   let myError = '';
   const options = {
@@ -108,7 +108,7 @@ function authenticateWithApiKey(apiKey: string, nodePath: string) {
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  exec.exec(command, [], options);
+  await exec.exec(command, [], options);
   console.log(myOutput);
   console.log(myError);
 }
