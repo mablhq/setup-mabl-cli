@@ -27,8 +27,8 @@ async function run() {
 
 function installCli(version: string, nodePath: string) {
   const installCommand = version
-    ? 'npm install @mablhq/mabl-cli'
-    : `npm install @mablhq/mabl-cli@${version}`;
+    ? `npm install @mablhq/mabl-cli@${version}`
+    : 'npm install @mablhq/mabl-cli';
 
   console.log(`node on ${nodePath}`);
   let myOutput = '';
@@ -74,7 +74,7 @@ function findNode() {
   const nodeVersion = allNodeVersions[0];
   core.info(`Found node version ${nodeVersion}.  Installing mabl CLI`);
 
-  return nodeVersion;
+  return toolCache.find('node', nodeVersion);
 }
 
 function authenticateWithApiKey(apiKey: string, nodePath: string) {
