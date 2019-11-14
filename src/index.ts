@@ -2,6 +2,7 @@ import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as toolCache from '@actions/tool-cache';
 import * as io from '@actions/io';
+import * as path from 'path';
 
 async function run() {
   const version = core.getInput('version', {required: false});
@@ -50,6 +51,14 @@ async function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
+  const mablFile = toolCache.cacheFile(
+    path.join(nodePath, 'bin', 'mabl'),
+    'mabl',
+    'mabl',
+    '1.0.0',
+  );
+  core.addPath(mablFile);
+
   exec.exec('ls', ['bin'], options);
   const whichMabl = await io.which('mabl');
   console.log(`mabl location: ${whichMabl}`);
@@ -92,7 +101,7 @@ function authenticateWithApiKey(apiKey: string, nodePath: string) {
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  exec.exec('mabl1', [], options);
+  exec.exec(command, [], options);
   console.log(myOutput);
   console.log(myError);
 }
