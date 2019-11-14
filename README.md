@@ -1,6 +1,6 @@
 ![mabl logo](https://avatars3.githubusercontent.com/u/25963599?s=100&v=4)
 
-# setup-mabl-cli
+# BETA setup-mabl-cli
 
 Github action to configure the
 [the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
@@ -8,6 +8,8 @@ installs the cli and configures it with an API key, if one is provided.  Note th
 should be stored as secrets.
 
 This action requires a version of node be installed as part of your workflow.  See below for an example of how to install node.
+
+Note that this action and the mabl CLI are in BETA.  Some interfaces may change without prior notice,
 
 ## Inputs
 
