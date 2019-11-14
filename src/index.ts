@@ -35,43 +35,23 @@ async function installCli(version: string, nodePath: string) {
   const installCommand = version
     ? `./bin/:npm install -g @mablhq/mabl-cli@${version}`
     : './bin/npm install -g @mablhq/mabl-cli';
-
-  console.log(`node on ${nodePath}`);
-  let myOutput = '';
-  let myError = '';
   const options = {
     cwd: nodePath,
-    listeners: {
-      stdout: (data: Buffer) => {
-        myOutput += data.toString();
-      },
-      stderr: (data: Buffer) => {
-        myError += data.toString();
-      },
-    },
   };
   //TODO:  Maybe listen for errors to fail the action if the install fails?
   await exec.exec(installCommand, [], options);
-  core.error(myError);
-  core.info(myOutput);
 
-  try {
-    const mablFile = await toolCache.cacheFile(
-      path.join(nodePath, 'bin', 'mabl'),
-      'mabl',
-      'mabl',
-      '1.0.0',
-    );
-    core.addPath(mablFile);
-  } catch (err) {
-    console.log(err);
-  }
-  exec.exec('which', ['mabl'], options);
-  const whichMabl = await io.which('mabl');
-  console.log(`location: ${whichMabl}`);
-  console.log(await io.which('mabl'));
-
-  return false;
+  // try {
+  //   const mablFile = await toolCache.cacheFile(
+  //     path.join(nodePath, 'bin', 'mabl'),
+  //     'mabl',
+  //     'mabl',
+  //     '1.0.0',
+  //   );
+  //   core.addPath(mablFile);
+  // } catch (err) {
+  //   console.log(err);
+  // }
 }
 
 function configureWorkspace(workspace: string) {

@@ -21,4 +21,4 @@ jobs:
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
       - name: list application
-        run: mabl applications list
+        run: mabl applications list -w 4U_SVbTOimwP0txQVsPBew-w
