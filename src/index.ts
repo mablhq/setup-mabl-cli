@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as toolCache from '@actions/tool-cache';
+import * as io from '@actions/io';
 
 async function run() {
   const version = core.getInput('version', {required: false});
@@ -59,6 +60,8 @@ function installCli(version: string, nodePath: string) {
   exec.exec('echo', ['$PATH'], options);
   core.error(myError);
   core.info(myOutput);
+
+  console.log(io.which('mabl'));
 
   return false;
 }
