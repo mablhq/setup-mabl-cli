@@ -4,7 +4,7 @@ name: mabl
 
 jobs:
   test:
-    name: Mabl Test
+    name: Download screenshots
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
