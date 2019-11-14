@@ -4,13 +4,15 @@
 
 Github action to configure the
 [the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
-installs the cli and
+installs the cli and configures it with an API key, if one is provided.  Note that API keys
+should be stored as secrets.
+
+This action requires a version of node be installed as part of your workflow.  See below for an example of how to install node.
 
 ## Inputs
 
 - `version` {string} {optional} The version of the CLI to install. Defaults to
   latest if not specified.
-- `workspace` {string} {otional} A mabl workspace id to set as default.
 
 ## Example workflow:
 
@@ -24,7 +26,6 @@ jobs:
     name: mabl Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
       - uses: mablhq/setup-mabl-cli@v1.0
         with:
           version: 0.1.2-beta
