@@ -55,14 +55,17 @@ async function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
-  const mablFile = await toolCache.cacheFile(
-    path.join(nodePath, 'bin', 'mabl'),
-    'mabl',
-    'mabl',
-    '1.0.0',
-  );
-  core.addPath(mablFile);
-
+  try {
+    const mablFile = await toolCache.cacheFile(
+      path.join(nodePath, 'bin', 'mabl'),
+      'mabl',
+      'mabl',
+      '1.0.0',
+    );
+    core.addPath(mablFile);
+  } catch (err) {
+    console.log(err);
+  }
   exec.exec('ls', ['bin'], options);
   const whichMabl = await io.which('mabl');
   console.log(`mabl location: ${whichMabl}`);
