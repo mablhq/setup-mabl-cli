@@ -44,7 +44,7 @@ function installCli(version: string, nodePath: string) {
       },
     },
   };
-  exec.exec('echo $PATH', [], options);
+  exec.exec('echo', ['$PATH'], options);
   core.error(myError);
   core.info(myOutput);
 
@@ -56,7 +56,7 @@ function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
-  exec.exec('echo $PATH', [], options);
+  exec.exec('echo', ['$PATH'], options);
   core.error(myError);
   core.info(myOutput);
 
