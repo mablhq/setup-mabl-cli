@@ -51,7 +51,7 @@ async function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
-  const mablFile = toolCache.cacheFile(
+  const mablFile = await toolCache.cacheFile(
     path.join(nodePath, 'bin', 'mabl'),
     'mabl',
     'mabl',
