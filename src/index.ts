@@ -92,7 +92,7 @@ function authenticateWithApiKey(apiKey: string, nodePath: string) {
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  exec.exec('mabl', [], options);
+  exec.exec('mabl1', [], options);
   console.log(myOutput);
   console.log(myError);
 }
