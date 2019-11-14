@@ -21,11 +21,9 @@ async function run() {
     core.setFailed('Please specify api key as an environment variable');
     return;
   }
-  try {
-    authenticateWithApiKey(apiKey, nodePath);
-  } catch (err) {
-    console.log(err);
-  }
+
+  authenticateWithApiKey(apiKey, nodePath);
+
   // if (workspace) {
   // configureWorkspace(workspace);
   // }
@@ -38,20 +36,7 @@ async function installCli(version: string, nodePath: string) {
   const options = {
     cwd: nodePath,
   };
-  //TODO:  Maybe listen for errors to fail the action if the install fails?
   await exec.exec(installCommand, [], options);
-
-  // try {
-  //   const mablFile = await toolCache.cacheFile(
-  //     path.join(nodePath, 'bin', 'mabl'),
-  //     'mabl',
-  //     'mabl',
-  //     '1.0.0',
-  //   );
-  //   core.addPath(mablFile);
-  // } catch (err) {
-  //   console.log(err);
-  // }
 }
 
 function configureWorkspace(workspace: string) {
@@ -73,28 +58,12 @@ function findNode() {
 }
 
 async function authenticateWithApiKey(apiKey: string, nodePath: string) {
-  let myOutput = '';
-  let myError = '';
   const options = {
     cwd: nodePath,
-    listeners: {
-      stdout: (data: Buffer) => {
-        myOutput += data.toString();
-      },
-      stderr: (data: Buffer) => {
-        myError += data.toString();
-      },
-    },
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  try {
-    await exec.exec(command, [], options);
-  } catch (err) {
-    console.log(err);
-  }
-  console.log(myOutput);
-  console.log(myError);
+  await exec.exec(command, [], options);
 }
 
 run();
