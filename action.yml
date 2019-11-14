@@ -1,5 +1,8 @@
 name: "Setup mabl CLI"
 description: "Register a deployment event with mabl and run associated tests"
+branding:
+  icon: activity
+  color: purple
 inputs:
   version:
     description: (optional) The version of the mabl CLI to install
