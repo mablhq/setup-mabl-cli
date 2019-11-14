@@ -50,6 +50,7 @@ async function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
+  exec.exec('ls', ['bin'], options);
   const whichMabl = await io.which('mabl');
   console.log(`mabl location: ${whichMabl}`);
   console.log(await io.which('mabl'));
@@ -76,8 +77,24 @@ function findNode() {
 }
 
 function authenticateWithApiKey(apiKey: string, nodePath: string) {
+  let myOutput = '';
+  let myError = '';
+  const options = {
+    cwd: nodePath,
+    listeners: {
+      stdout: (data: Buffer) => {
+        myOutput += data.toString();
+      },
+      stderr: (data: Buffer) => {
+        myError += data.toString();
+      },
+    },
+  };
+
   const command: string = `mabl auth activate-key ${apiKey}`;
-  exec.exec(command, [], {cwd: nodePath});
+  exec.exec(command, [], options);
+  console.log(myOutput);
+  console.log(myError);
 }
 
 run();
