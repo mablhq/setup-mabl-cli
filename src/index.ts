@@ -30,6 +30,8 @@ function installCli(version: string, nodePath: string) {
     ? 'npm install @mablhq/mabl-cli'
     : `npm install @mablhq/mabl-cli@${version}`;
 
+  console.log(`node on ${nodePath}`);
+  exec.exec('pwd', [], {cwd: nodePath});
   //TODO:  Maybe listen for errors to fail the action if the install fails?
   exec.exec(installCommand, [], {cwd: nodePath});
 
