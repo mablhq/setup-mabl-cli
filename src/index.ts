@@ -45,22 +45,13 @@ async function installCli(version: string, nodePath: string) {
       },
     },
   };
-  exec.exec('echo', ['$PATH'], options);
-  core.error(myError);
-  core.info(myOutput);
-
-  myOutput = '';
-  myError = '';
   //TODO:  Maybe listen for errors to fail the action if the install fails?
   exec.exec(installCommand, [], options);
-
   core.error(myError);
   core.info(myOutput);
 
-  exec.exec('echo', ['$PATH'], options);
-  core.error(myError);
-  core.info(myOutput);
-
+  const whichMabl = await io.which('mabl');
+  console.log(`mabl location: ${whichMabl}`);
   console.log(await io.which('mabl'));
 
   return false;
