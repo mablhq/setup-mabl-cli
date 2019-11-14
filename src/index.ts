@@ -14,7 +14,7 @@ async function run() {
     return;
   }
 
-  installCli(version, nodePath);
+  await installCli(version, nodePath);
 
   if (!apiKey) {
     core.setFailed('Please specify api key as an environment variable');
@@ -26,7 +26,7 @@ async function run() {
   // }
 }
 
-function installCli(version: string, nodePath: string) {
+async function installCli(version: string, nodePath: string) {
   const installCommand = version
     ? `npm install @mablhq/mabl-cli@${version}`
     : 'npm install @mablhq/mabl-cli';
@@ -61,7 +61,7 @@ function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
-  io.which('mabl').then(console.log);
+  console.log(await io.which('mabl'));
 
   return false;
 }
