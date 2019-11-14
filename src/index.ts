@@ -19,7 +19,7 @@ async function run() {
     core.setFailed('Please specify api key as an environment variable');
     return;
   }
-  // authenticateWithApiKey(apiKey, nodePath);
+  authenticateWithApiKey(apiKey, nodePath);
   // if (workspace) {
   // configureWorkspace(workspace);
   // }
@@ -44,7 +44,7 @@ function installCli(version: string, nodePath: string) {
       },
     },
   };
-  exec.exec('pwd', [], options);
+  exec.exec('echo $PATH', [], options);
   core.error(myError);
   core.info(myOutput);
 
