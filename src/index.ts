@@ -33,8 +33,8 @@ async function run() {
 
 async function installCli(version: string, nodePath: string) {
   const installCommand = version
-    ? `npm install @mablhq/mabl-cli@${version}`
-    : 'npm install @mablhq/mabl-cli';
+    ? `./npm install @mablhq/mabl-cli@${version}`
+    : './npm install @mablhq/mabl-cli';
 
   console.log(`node on ${nodePath}`);
   let myOutput = '';
@@ -108,7 +108,11 @@ async function authenticateWithApiKey(apiKey: string, nodePath: string) {
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  await exec.exec(command, [], options);
+  try {
+    await exec.exec(command, [], options);
+  } catch (err) {
+    console.log(err);
+  }
   console.log(myOutput);
   console.log(myError);
 }
