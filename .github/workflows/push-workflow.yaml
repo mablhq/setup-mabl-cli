@@ -1,0 +1,24 @@
+on: [push]
+
+name: mabl
+
+jobs:
+  test:
+    name: Mabl Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Compile typescript
+        run: npm run build
+      - name: install mabl CLI
+        id: install-mabl-cli
+        uses: ./
+        env:
+          MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
+      - name: list application
+        run: mabl applications list -w 4U_SVbTOimwP0txQVsPBew-w
