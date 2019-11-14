@@ -51,7 +51,7 @@ async function installCli(version: string, nodePath: string) {
     },
   };
   //TODO:  Maybe listen for errors to fail the action if the install fails?
-  exec.exec(installCommand, [], options);
+  await exec.exec(installCommand, [], options);
   core.error(myError);
   core.info(myOutput);
 
