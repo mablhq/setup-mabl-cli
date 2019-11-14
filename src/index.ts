@@ -31,9 +31,30 @@ function installCli(version: string, nodePath: string) {
     : `npm install @mablhq/mabl-cli@${version}`;
 
   console.log(`node on ${nodePath}`);
-  exec.exec('pwd', [], {cwd: nodePath});
+  let myOutput = '';
+  let myError = '';
+  const options = {
+    cwd: nodePath,
+    listeners: {
+      stdout: (data: Buffer) => {
+        myOutput += data.toString();
+      },
+      stderr: (data: Buffer) => {
+        myError += data.toString();
+      },
+    },
+  };
+  exec.exec('pwd', [], options);
+  core.error(myError);
+  core.info(myOutput);
+
+  myOutput = '';
+  myError = '';
   //TODO:  Maybe listen for errors to fail the action if the install fails?
-  exec.exec(installCommand, [], {cwd: nodePath});
+  exec.exec(installCommand, [], options);
+
+  core.error(myError);
+  core.info(myOutput);
 
   return false;
 }
