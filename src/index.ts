@@ -61,7 +61,7 @@ function installCli(version: string, nodePath: string) {
   core.error(myError);
   core.info(myOutput);
 
-  console.log(io.which('mabl'));
+  io.which('mabl').then(console.log);
 
   return false;
 }
