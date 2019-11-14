@@ -33,8 +33,8 @@ async function run() {
 
 async function installCli(version: string, nodePath: string) {
   const installCommand = version
-    ? `./npm install @mablhq/mabl-cli@${version}`
-    : './npm install @mablhq/mabl-cli';
+    ? `./bin/:wnpm install @mablhq/mabl-cli@${version}`
+    : './bin/npm install @mablhq/mabl-cli';
 
   console.log(`node on ${nodePath}`);
   let myOutput = '';
