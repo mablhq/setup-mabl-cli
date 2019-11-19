@@ -2,7 +2,7 @@
 
 # BETA setup-mabl-cli
 
-Github action to configure the
+Github action to configure the 
 [the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
 installs the cli and configures it with an API key, if one is provided. Note
 that API keys should be stored as secrets.
