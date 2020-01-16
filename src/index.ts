@@ -23,7 +23,7 @@ async function run() {
   await authenticateWithApiKey(apiKey, nodePath);
 
   if (workspace) {
-    await configureWorkspace(workspace);
+    await configureWorkspace(workspace, nodePath);
   }
 }
 
@@ -37,9 +37,13 @@ async function installCli(version: string, nodePath: string) {
   await exec.exec(installCommand, [], options);
 }
 
-async function configureWorkspace(workspace: string) {
-  await exec.exec(`mabl config set workspace ${workspace}`);
-  await exec.exec(`mabl config set workspace ${workspace}`);
+async function configureWorkspace(workspace: string, nodePath: string) {
+  const options = {
+    cwd: nodePath,
+  };
+
+  await exec.exec(`mabl config set workspace ${workspace}`, [], options);
+  await exec.exec(`mabl config list`, [], options);
 }
 
 async function findNode() {
@@ -63,6 +67,8 @@ async function authenticateWithApiKey(apiKey: string, nodePath: string) {
 
   const command: string = `mabl auth activate-key ${apiKey}`;
   await exec.exec(command, [], options);
+
+  await exec.exec('mabl auth info', [], options);
 }
 
 run();
