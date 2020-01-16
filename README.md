@@ -8,7 +8,7 @@ installs the cli and configures it with an API key, if one is provided. Note
 that API keys should be stored as secrets.
 
 This action requires a version of node be installed as part of your workflow.
-The mabl-cli will be installed into that node runtime.  
+The [mabl-cli](https://www.npmjs.com/package/@mablhq/mabl-cli) will be installed into that node runtime.  
 See below for an example of how to install node.
 
 Note that this action and the mabl CLI are in BETA. Some interfaces may change
