@@ -20,7 +20,9 @@ async function run() {
     return;
   }
 
-  await authenticateWithApiKey(apiKey, nodePath);
+  if (!(await authenticateWithApiKey(apiKey, nodePath))) {
+    return;
+  }
 
   if (workspace) {
     await configureWorkspace(workspace, nodePath);
@@ -37,7 +39,10 @@ async function installCli(version: string, nodePath: string) {
   await exec.exec(installCommand, [], options);
 }
 
-async function configureWorkspace(workspace: string, nodePath: string) {
+async function configureWorkspace(
+  workspace: string,
+  nodePath: string,
+): Promise<boolean> {
   const options = {
     cwd: nodePath,
   };
@@ -48,8 +53,12 @@ async function configureWorkspace(workspace: string, nodePath: string) {
     core.setFailed(
       `Failed while trying to configure workspace with error ${err}`,
     );
+
+    return false;
   }
   await exec.exec(`mabl config list`, [], options);
+
+  return true;
 }
 
 async function findNode() {
@@ -66,7 +75,10 @@ async function findNode() {
   return toolCache.find('node', nodeVersion);
 }
 
-async function authenticateWithApiKey(apiKey: string, nodePath: string) {
+async function authenticateWithApiKey(
+  apiKey: string,
+  nodePath: string,
+): Promise<boolean> {
   const options = {
     cwd: nodePath,
   };
@@ -76,9 +88,13 @@ async function authenticateWithApiKey(apiKey: string, nodePath: string) {
     await exec.exec(command, [], options);
   } catch (err) {
     core.setFailed(`Failed while trying to activate api key with error ${err}`);
+
+    return false;
   }
 
   await exec.exec('mabl auth info', [], options);
+
+  return true;
 }
 
 run();
