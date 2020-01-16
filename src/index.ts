@@ -42,7 +42,13 @@ async function configureWorkspace(workspace: string, nodePath: string) {
     cwd: nodePath,
   };
 
-  await exec.exec(`mabl config set workspace ${workspace}`, [], options);
+  try {
+    await exec.exec(`mabl config set workspace ${workspace}`, [], options);
+  } catch (err) {
+    core.setFailed(
+      `Failed while trying to configure workspace with error ${err}`,
+    );
+  }
   await exec.exec(`mabl config list`, [], options);
 }
 
@@ -66,7 +72,11 @@ async function authenticateWithApiKey(apiKey: string, nodePath: string) {
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  await exec.exec(command, [], options);
+  try {
+    await exec.exec(command, [], options);
+  } catch (err) {
+    core.setFailed(`Failed while trying to activate api key with error ${err}`);
+  }
 
   await exec.exec('mabl auth info', [], options);
 }
