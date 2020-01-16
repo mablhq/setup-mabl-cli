@@ -87,7 +87,7 @@ async function authenticateWithApiKey(
   try {
     await exec.exec(command, [], options);
   } catch (err) {
-    core.setFailed(`Failed while trying to activate api key with error ${err}`);
+    core.setFailed(`Failed while trying to activate API key with error ${err}`);
 
     return false;
   }
