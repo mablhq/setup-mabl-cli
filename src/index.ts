@@ -42,8 +42,8 @@ async function configureWorkspace(workspace: string) {
   await exec.exec(`mabl config set workspace ${workspace}`);
 }
 
-function findNode() {
-  const allNodeVersions = toolCache.findAllVersions('node');
+async function findNode() {
+  const allNodeVersions = await toolCache.findAllVersions('node');
   core.info(`all versions, ${allNodeVersions}`);
   if (!allNodeVersions) {
     core.setFailed(
