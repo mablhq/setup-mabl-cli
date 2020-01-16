@@ -13,7 +13,7 @@ async function run() {
     return;
   }
 
-  installCli(version, nodePath);
+  await installCli(version, nodePath);
 
   if (!apiKey) {
     core.setFailed('Please specify api key as an environment variable');
