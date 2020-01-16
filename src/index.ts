@@ -44,6 +44,7 @@ async function configureWorkspace(workspace: string) {
 
 function findNode() {
   const allNodeVersions = toolCache.findAllVersions('node');
+  core.info(`all versions, ${allNodeVersions}`);
   if (!allNodeVersions) {
     core.setFailed(
       'No node version installed.  Please add a "actions/setup-node" step to your workflow or install a node version some other way.',
