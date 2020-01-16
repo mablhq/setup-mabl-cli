@@ -23,4 +23,4 @@ jobs:
         with:
           workspace: w4U_SVbTOimwP0txQVsPBew
       - name: list application
-        run: mabl applications list -w 4U_SVbTOimwP0txQVsPBew-w
+        run: mabl applications list

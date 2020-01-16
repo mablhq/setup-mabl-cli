@@ -7,23 +7,23 @@ async function run() {
   const workspace = core.getInput('workspace', {required: false});
   const apiKey: string | undefined = process.env.MABL_API_KEY;
 
-  const nodePath = findNode();
+  const nodePath = await findNode();
 
   if (!nodePath) {
     return;
   }
 
-  await installCli(version, nodePath);
+  installCli(version, nodePath);
 
   if (!apiKey) {
     core.setFailed('Please specify api key as an environment variable');
     return;
   }
 
-  authenticateWithApiKey(apiKey, nodePath);
+  await authenticateWithApiKey(apiKey, nodePath);
 
   if (workspace) {
-    configureWorkspace(workspace);
+    await configureWorkspace(workspace);
   }
 }
 
@@ -37,8 +37,9 @@ async function installCli(version: string, nodePath: string) {
   await exec.exec(installCommand, [], options);
 }
 
-function configureWorkspace(workspace: string) {
-  exec.exec(`mabl config set workspace ${workspace} && mabl config list`);
+async function configureWorkspace(workspace: string) {
+  await exec.exec(`mabl config set workspace ${workspace}`);
+  await exec.exec(`mabl config set workspace ${workspace}`);
 }
 
 function findNode() {
