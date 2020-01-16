@@ -4,7 +4,7 @@ import * as toolCache from '@actions/tool-cache';
 
 async function run() {
   const version = core.getInput('version', {required: false});
-  // const workspace = core.getInput('workspace', {required: false});
+  const workspace = core.getInput('workspace', {required: false});
   const apiKey: string | undefined = process.env.MABL_API_KEY;
 
   const nodePath = findNode();
@@ -22,9 +22,9 @@ async function run() {
 
   authenticateWithApiKey(apiKey, nodePath);
 
-  // if (workspace) {
-  // configureWorkspace(workspace);
-  // }
+  if (workspace) {
+    configureWorkspace(workspace);
+  }
 }
 
 async function installCli(version: string, nodePath: string) {
