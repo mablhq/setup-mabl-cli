@@ -4,10 +4,10 @@ import * as toolCache from '@actions/tool-cache';
 
 async function run() {
   const version = core.getInput('version', {required: false});
-  // const workspace = core.getInput('workspace', {required: false});
+  const workspace = core.getInput('workspace', {required: false});
   const apiKey: string | undefined = process.env.MABL_API_KEY;
 
-  const nodePath = findNode();
+  const nodePath = await findNode();
 
   if (!nodePath) {
     return;
@@ -20,11 +20,13 @@ async function run() {
     return;
   }
 
-  authenticateWithApiKey(apiKey, nodePath);
+  if (!(await authenticateWithApiKey(apiKey, nodePath))) {
+    return;
+  }
 
-  // if (workspace) {
-  // configureWorkspace(workspace);
-  // }
+  if (workspace) {
+    await configureWorkspace(workspace, nodePath);
+  }
 }
 
 async function installCli(version: string, nodePath: string) {
@@ -37,13 +39,31 @@ async function installCli(version: string, nodePath: string) {
   await exec.exec(installCommand, [], options);
 }
 
-function configureWorkspace(workspace: string) {
-  exec.exec(`mabl config set workspace ${workspace} && mabl config list`);
+async function configureWorkspace(
+  workspace: string,
+  nodePath: string,
+): Promise<boolean> {
+  const options = {
+    cwd: nodePath,
+  };
+
+  try {
+    await exec.exec(`mabl config set workspace ${workspace}`, [], options);
+  } catch (err) {
+    core.setFailed(
+      `Failed while trying to configure workspace with error ${err}`,
+    );
+
+    return false;
+  }
+  await exec.exec(`mabl config list`, [], options);
+
+  return true;
 }
 
-function findNode() {
-  const allNodeVersions = toolCache.findAllVersions('node');
-  if (!allNodeVersions) {
+async function findNode() {
+  const allNodeVersions = await toolCache.findAllVersions('node');
+  if (!(allNodeVersions && allNodeVersions[0])) {
     core.setFailed(
       'No node version installed.  Please add a "actions/setup-node" step to your workflow or install a node version some other way.',
     );
@@ -55,13 +75,26 @@ function findNode() {
   return toolCache.find('node', nodeVersion);
 }
 
-async function authenticateWithApiKey(apiKey: string, nodePath: string) {
+async function authenticateWithApiKey(
+  apiKey: string,
+  nodePath: string,
+): Promise<boolean> {
   const options = {
     cwd: nodePath,
   };
 
   const command: string = `mabl auth activate-key ${apiKey}`;
-  await exec.exec(command, [], options);
+  try {
+    await exec.exec(command, [], options);
+  } catch (err) {
+    core.setFailed(`Failed while trying to activate API key with error ${err}`);
+
+    return false;
+  }
+
+  await exec.exec('mabl auth info', [], options);
+
+  return true;
 }
 
 run();

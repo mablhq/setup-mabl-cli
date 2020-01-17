@@ -8,10 +8,11 @@ installs the cli and configures it with an API key, if one is provided. Note
 that API keys should be stored as secrets.
 
 This action requires a version of node be installed as part of your workflow.
+The [mabl-cli](https://www.npmjs.com/package/@mablhq/mabl-cli) will be installed into that node runtime.  
 See below for an example of how to install node.
 
 Note that this action and the mabl CLI are in BETA. Some interfaces may change
-without prior notice,
+without prior notice.
 
 ## Inputs
 
@@ -25,6 +26,11 @@ without prior notice,
   The MABL_API_KEY should be stored as a repositor secret and pased as in the
   example below. Never store your MABL_API_KEY in plain test in your action.
 
+## Requirements
+
+- Requires node to be installed as a prior step. This is most easily done with
+  the 'actions/setup-node@v1' command
+
 ## Example workflow:
 
 ```
@@ -37,7 +43,10 @@ jobs:
     name: mabl Test
     runs-on: ubuntu-latest
     steps:
-      - uses: mablhq/setup-mabl-cli@v1.0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: mablhq/setup-mabl-cli@v0.2
         with:
           version: 0.1.2-beta
           workspace: V2pvHBJ-rprn1n3S4ELs3A-w
