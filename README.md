@@ -46,7 +46,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - uses: mablhq/setup-mabl-cli@v1.0
+      - uses: mablhq/setup-mabl-cli@v0.2
         with:
           version: 0.1.2-beta
           workspace: V2pvHBJ-rprn1n3S4ELs3A-w
