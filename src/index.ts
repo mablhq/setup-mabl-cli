@@ -15,16 +15,17 @@ async function run() {
 
   await installCli(version, nodePath);
 
-  if (!apiKey) {
-    core.setFailed('Please specify api key as an environment variable');
-    return;
-  }
-
-  if (!(await authenticateWithApiKey(apiKey, nodePath))) {
-    return;
+  if (apiKey) {
+    if (!(await authenticateWithApiKey(apiKey, nodePath))) {
+      return;
+    }
   }
 
   if (workspace) {
+    if (!apiKey) {
+      core.setFailed('Please specify api key as an environment variable');
+      return;
+    }
     await configureWorkspace(workspace, nodePath);
   }
 }
