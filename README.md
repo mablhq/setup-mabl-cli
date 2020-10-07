@@ -18,12 +18,14 @@ without prior notice.
 
 - `version` {string} {optional} The version of the CLI to install. Defaults to
   latest if not specified.
+- `workspace_id` {string} {optional} A workspace id to configure.  If provided, all future calls to the cli will use this workspace by default.
 
 ## Environment variables
 
 - `MABL_API_KEY` {string} {optional} If provided, this action will authenticate
-  with the mabl CLI using the MABL_API_KEY.  
-  The MABL_API_KEY should be stored as a repositor secret and pased as in the
+  with the mabl CLI using the MABL_API_KEY.
+  
+  The MABL_API_KEY should be stored as a repository secret and pased as in the
   example below. Never store your MABL_API_KEY in plain test in your action.
 
 ## Requirements
