@@ -23,7 +23,7 @@ without prior notice.
 ## Environment variables
 
 - `MABL_API_KEY` {string} {optional} If provided, this action will authenticate
-  with the mabl CLI using the MABL_API_KEY.
+  with the mabl CLI using the MABL_API_KEY.  This is required if you also pass in a workspace_id.
   
   The MABL_API_KEY should be stored as a repository secret and pased as in the
   example below. Never store your MABL_API_KEY in plain test in your action.
