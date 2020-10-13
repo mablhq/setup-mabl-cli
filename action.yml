@@ -1,4 +1,4 @@
-name: "Setup mabl CLI"
+name: "Release Master Mable CLI"
 description: "Register a deployment event with mabl and run associated tests"
 branding:
   icon: activity
