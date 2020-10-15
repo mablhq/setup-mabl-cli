@@ -66,6 +66,10 @@ jobs:
           path: screenshots.zip
 ```
 
+## Contributing
+
+See [here](CONTRIBUTING.md) for details on contributing to this action.
+
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are
