@@ -26,7 +26,7 @@ without prior notice.
   with the mabl CLI using the `MABL_API_KEY`.  This is required if you also pass in a `workspace_id`.
   
   The `MABL_API_KEY` should be stored as a repository secret and passed as in the
-  example below. Never store your MABL_API_KEY in plain test in your action.
+  example below. **Never** store your `MABL_API_KEY` in plain text in your workflow YAML.
 
 ## Requirements
 
@@ -49,7 +49,7 @@ jobs:
         with:
           node-version: '12.x'
 
-      - uses: mablhq/setup-mabl-cli@v0.4
+      - uses: mablhq/setup-mabl-cli@v0.3
         with:
           version: 0.6.94-beta
           workspace_id: V2pvHBJ-rprn1n3S4ELs3A-w
