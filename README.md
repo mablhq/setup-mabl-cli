@@ -49,7 +49,7 @@ jobs:
         with:
           node-version: '12.x'
 
-      - uses: mablhq/setup-mabl-cli@v0.3
+      - uses: mablhq/setup-mabl-cli@v0.4
         with:
           version: 0.6.94-beta
           workspace-id: V2pvHBJ-rprn1n3S4ELs3A-w
