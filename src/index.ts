@@ -8,7 +8,8 @@ async function run(): Promise<void> {
   const version: Option<string> = core.getInput('version', {required: false});
   // Allow new or old syntax - some docs said 'workspace', others said 'workspace_id'
   const workspaceId: Option<string> = core.getInput('workspace', {required: false})
-    ?? core.getInput('workspace_id', {required: false});
+    ?? core.getInput('workspace_id', {required: false})
+    ?? core.getInput('workspace-id', {required: false}); // dash case is used by GitHub produced Actions
 
   const apiKey: Option<string> = process.env.MABL_API_KEY;
 

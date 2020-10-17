@@ -18,12 +18,12 @@ without prior notice.
 
 - `version` {string} {optional} The version of the CLI to install. Defaults to
   the latest version if not specified.
-- `workspace_id` {string} {optional} A workspace id to configure.  If provided, all future calls to the cli will use this workspace by default.
+- `workspace-id` {string} {optional} A workspace id to configure.  If provided, all future calls to the cli will use this workspace by default.
 
 ## Environment variables
 
 - `MABL_API_KEY` {string} {optional} If provided, this action will authenticate
-  with the mabl CLI using the `MABL_API_KEY`.  This is required if you also pass in a `workspace_id`.
+  with the mabl CLI using the `MABL_API_KEY`.  This is required if you also pass in a `workspace-id`.
   
   The `MABL_API_KEY` should be stored as a repository secret and passed as in the
   example below. **Never** store your `MABL_API_KEY` in plain text in your workflow YAML.
@@ -52,7 +52,7 @@ jobs:
       - uses: mablhq/setup-mabl-cli@v0.3
         with:
           version: 0.6.94-beta
-          workspace_id: V2pvHBJ-rprn1n3S4ELs3A-w
+          workspace-id: V2pvHBJ-rprn1n3S4ELs3A-w
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
 
