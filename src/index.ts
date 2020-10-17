@@ -4,10 +4,10 @@ import * as toolCache from '@actions/tool-cache';
 
 type Option<T> = T | undefined;
 
-async function run() {
+async function run(): Promise<void> {
   const version: Option<string> = core.getInput('version', {required: false});
   // Allow new or old syntax - some docs said 'workspace', others said 'workspace_id'
-  const workspace: Option<string> = core.getInput('workspace', {required: false})
+  const workspaceId: Option<string> = core.getInput('workspace', {required: false})
     ?? core.getInput('workspace_id', {required: false});
 
   const apiKey: Option<string> = process.env.MABL_API_KEY;
@@ -26,12 +26,12 @@ async function run() {
     }
   }
 
-  if (workspace) {
+  if (workspaceId) {
     if (!apiKey) {
       core.setFailed('Please specify api key as an environment variable');
       return;
     }
-    await configureWorkspace(workspace, nodePath);
+    await configureWorkspace(workspaceId, nodePath);
   }
 }
 

@@ -19,6 +19,6 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.24",
     "@types/q": "^1.5.2",
-    "@types/request-promise-native": "^1.0.16"
+    "typescript": "^4.0.3"
   }
 }
