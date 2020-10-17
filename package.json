@@ -6,19 +6,19 @@
   "scripts": {
     "test": "tsc && mocha ./tests/_suite.js",
     "build": "tsc",
-    "release": "npm install && npm run build && npm prune --production && git add -f node_modules/* && git add -f lib/*"
+    "release": "npm ci && npm run build && npm prune --production && git add -f node_modules/* && git add -f lib/*"
   },
   "author": "mabl",
   "dependencies": {
-    "@actions/core": "^1.2.0",
-    "@actions/exec": "^1.0.1",
-    "@actions/tool-cache": "^1.1.2",
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4",
+    "@actions/tool-cache": "^1.6.0",
     "@types/es6-promise": "^3.3.0"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.12.7",
+    "@types/node": "^12.12.24",
     "@types/q": "^1.5.2",
-    "@types/request-promise-native": "^1.0.16"
+    "typescript": "^4.0.3"
   }
 }
