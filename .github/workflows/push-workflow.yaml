@@ -11,16 +11,22 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
       - name: Compile typescript
         run: npm run build
-      - name: install mabl CLI
-        id: install-mabl-cli
+
+      - name: Install mabl CLI
         uses: ./
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
         with:
+          # Try variants
           workspace: 4U_SVbTOimwP0txQVsPBew-w
-      - name: list application
+          workspace_id: 4U_SVbTOimwP0txQVsPBew-w
+          workspace-id: 4U_SVbTOimwP0txQVsPBew-w
+
+      - name: List applications
         run: mabl applications list
