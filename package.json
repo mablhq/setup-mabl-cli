@@ -1,24 +1,24 @@
 {
   "name": "setup-mabl-cli",
-  "version": "0.0.1",
-  "description": "mabl github action to setup mabl CLI",
+  "version": "1.0.0",
+  "description": "mabl GitHub action to setup mabl CLI",
   "main": "lib/index.js",
   "scripts": {
     "test": "tsc && mocha ./tests/_suite.js",
     "build": "tsc",
     "release": "npm ci && npm run build && npm prune --production && git add -f node_modules/* && git add -f lib/*"
   },
-  "author": "mabl",
+  "author": "mablhq",
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/exec": "^1.0.4",
-    "@actions/tool-cache": "^1.6.0",
+    "@actions/tool-cache": "^1.6.1",
     "@types/es6-promise": "^3.3.0"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.24",
     "@types/q": "^1.5.2",
-    "typescript": "^4.0.3"
+    "typescript": "^4.1.3"
   }
 }
