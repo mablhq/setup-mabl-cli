@@ -2,36 +2,33 @@
 
 # setup-mabl-cli
 
-Github action to configure the
+GitHub action to configure the
 [the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
-installs the cli and configures it with an API key, if one is provided. Note
-that API keys should be stored as secrets.
+installs and configures the CLI with a mabl API key, if one is provided. Note
+that API keys should be stored as [GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization).
 
-This action requires a version of Node.js be installed as part of your workflow.
+This action requires Node.js 10+ be installed as part of your workflow.
 The [mabl-cli](https://www.npmjs.com/package/@mablhq/mabl-cli) will be installed into that Node.js runtime.  
 See below for an example of how to install Node.js.
-
-Note that the mabl CLI is in BETA. Some interfaces may change
-without prior notice.
 
 ## Inputs
 
 - `version` {string} {optional} The version of the CLI to install. Defaults to
   the latest version if not specified.
-- `workspace-id` {string} {optional} A workspace id to configure.  If provided, all future calls to the cli will use this workspace by default.
+- `workspace-id` {string} {optional} A workspace id to configure.  If provided, all future calls to the CLI will use this workspace by default.
 
 ## Environment variables
 
 - `MABL_API_KEY` {string} {optional} If provided, this action will authenticate
   with the mabl CLI using the `MABL_API_KEY`.  This is required if you also pass in a `workspace-id`.
   
-  The `MABL_API_KEY` should be stored as a repository secret and passed as in the
-  example below. **Never** store your `MABL_API_KEY` in plain text in your workflow YAML.
+  The `MABL_API_KEY` should be stored as a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization) and passed as in the
+  example below. **Never** store your `MABL_API_KEY` as plain text in your workflow YAML.
 
 ## Requirements
 
-- Requires Node.js to be installed as a prior step. This is most easily done with
-  the `actions/setup-node@v1` action.
+- Requires Node.js 10+ be installed as a prior step. This is most easily done with
+  the `actions/setup-node@v2` action.
 
 ## Example workflow:
 
@@ -45,13 +42,13 @@ jobs:
     name: Mabl Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: '12.x'
 
-      - uses: mablhq/setup-mabl-cli@v0.4
+      - uses: mablhq/setup-mabl-cli@v1
         with:
-          version: 0.6.94-beta
+          version: 1.2.32
           workspace-id: V2pvHBJ-rprn1n3S4ELs3A-w
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
