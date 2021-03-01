@@ -5,7 +5,10 @@ name: mabl
 jobs:
   test:
     name: Mabl Test
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-20.04, macos-latest, windows-latest ]
     steps:
       - uses: actions/checkout@main
       - uses: actions/setup-node@v2
@@ -30,3 +33,4 @@ jobs:
 
       - name: List applications
         run: mabl applications list
+

@@ -37,9 +37,8 @@ async function run(): Promise<void> {
 }
 
 async function installCli(nodePath: string, version?: string): Promise<void> {
-  const installCommand = version
-    ? `./bin/:npm install -g @mablhq/mabl-cli@${version}`
-    : './bin/npm install -g @mablhq/mabl-cli';
+  const binPrefix = process.platform === 'win32' ? '' : 'bin/';
+  const installCommand = `./${binPrefix}npm install -g @mablhq/mabl-cli${version ? '@' + version : ''}`
   const options = {
     cwd: nodePath,
   };
