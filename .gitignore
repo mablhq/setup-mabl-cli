@@ -65,3 +65,6 @@ typings/
 
 #compiled js
 lib/*.js
+
+.npmrc
+
