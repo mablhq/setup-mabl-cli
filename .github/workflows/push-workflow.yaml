@@ -3,7 +3,7 @@ on: [push]
 name: mabl
 
 jobs:
-  test-linux:
+  test:
     name: Mabl Test
     runs-on: ${{ matrix.os }}
     strategy:
