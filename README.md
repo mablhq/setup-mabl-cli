@@ -3,7 +3,7 @@
 # setup-mabl-cli
 
 GitHub action to configure the
-[the `mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
+[`mabl-cli` command-line client](https://help.mabl.com/docs/mabl-cli). It
 installs and configures the CLI with a mabl API key, if one is provided. Note
 that API keys should be stored as [GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization).
 
@@ -30,7 +30,7 @@ See below for an example of how to install Node.js.
 - Requires Node.js 10+ be installed as a prior step. This is most easily done with
   the `actions/setup-node@v2` action.
 
-## Example workflow:
+## Example workflow
 
 ```
 on: [push]
@@ -48,7 +48,7 @@ jobs:
 
       - uses: mablhq/setup-mabl-cli@v1
         with:
-          version: 1.2.32
+          version: 1.5.6
           workspace-id: V2pvHBJ-rprn1n3S4ELs3A-w
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
@@ -62,6 +62,9 @@ jobs:
           name: screenshots
           path: screenshots.zip
 ```
+
+You can also see how this GitHub action is tested on multiple operating
+systems in parallel in the [workflow file](https://github.com/mablhq/setup-mabl-cli/blob/master/.github/workflows/push-workflow.yaml) in this repo.
 
 ## Contributing
 
