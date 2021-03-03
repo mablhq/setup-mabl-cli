@@ -30,7 +30,11 @@ See below for an example of how to install Node.js.
 - Requires Node.js 10+ be installed as a prior step. This is most easily done with
   the `actions/setup-node@v2` action.
 
-## Example workflow
+## Examples
+
+### Basic Example
+
+This workflow shows how to use the mabl CLI in your workflow to export screenshots and upload them to a location.
 
 ```
 on: [push]
@@ -61,6 +65,37 @@ jobs:
         with:
           name: screenshots
           path: screenshots.zip
+```
+
+### Running Tests on Multiple Operating Systems in Parallel
+
+This workflow demonstrates how to use the matrix strategy to kick off headless test runs in parallel on Ubuntu Linux, macOS, and Windows.
+
+```
+on: [push]
+
+name: mabl
+
+jobs:
+  test:
+    name: Mabl Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+
+      - uses: mablhq/setup-mabl-cli@v1.1
+        with:
+          workspace: 8OfudHtGzLyWLU1-LBjZtQ-w
+        env:
+          MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
+      
+      - name: Run tests
+        run: mabl tests run --id P9BXWTEbMLeAdAPRT35jWA-j --headless --environment-id Jw7oBZlxKXVGxK3_eWxcWQ-e
 ```
 
 You can also see how this GitHub action is tested on multiple operating
