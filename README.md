@@ -88,7 +88,7 @@ jobs:
         with:
           node-version: '12.x'
 
-      - uses: mablhq/setup-mabl-cli@v1.1
+      - uses: mablhq/setup-mabl-cli@v1
         with:
           workspace: 8OfudHtGzLyWLU1-LBjZtQ-w
         env:
