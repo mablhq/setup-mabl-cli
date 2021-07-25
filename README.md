@@ -15,12 +15,12 @@ See below for an example of how to install Node.js.
 
 - `version` {string} {optional} The version of the CLI to install. Defaults to
   the latest version if not specified.
-- `workspace-id` {string} {optional} A workspace id to configure.  If provided, all future calls to the CLI will use this workspace by default.
+- `workspace` {string} {optional} A workspace id to configure.  If provided, all future calls to the CLI will use this workspace by default.
 
 ## Environment variables
 
 - `MABL_API_KEY` {string} {optional} If provided, this action will authenticate
-  with the mabl CLI using the `MABL_API_KEY`.  This is required if you also pass in a `workspace-id`.
+  with the mabl CLI using the `MABL_API_KEY`.  This is required if you also pass in a `workspace`.
   
   The `MABL_API_KEY` should be stored as a [GitHub secret](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization) and passed as in the
   example below. **Never** store your `MABL_API_KEY` as plain text in your workflow YAML.
@@ -53,7 +53,7 @@ jobs:
       - uses: mablhq/setup-mabl-cli@v1
         with:
           version: 1.5.6
-          workspace-id: V2pvHBJ-rprn1n3S4ELs3A-w
+          workspace: V2pvHBJ-rprn1n3S4ELs3A-w
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
 
