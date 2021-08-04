@@ -7,7 +7,7 @@ GitHub action to configure the
 installs and configures the CLI with a mabl API key, if one is provided. Note
 that API keys should be stored as [GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization).
 
-This action requires Node.js 10+ be installed as part of your workflow.
+This action requires Node.js 12+ be installed as part of your workflow.
 The [mabl-cli](https://www.npmjs.com/package/@mablhq/mabl-cli) will be installed into that Node.js runtime.  
 See below for an example of how to install Node.js.
 
@@ -27,7 +27,7 @@ See below for an example of how to install Node.js.
 
 ## Requirements
 
-- Requires Node.js 10+ be installed as a prior step. This is most easily done with
+- Requires Node.js 12+ be installed as a prior step. This is most easily done with
   the `actions/setup-node@v2` action.
 
 ## Examples
