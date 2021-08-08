@@ -8,6 +8,9 @@ inputs:
     description: (optional) The version of the mabl CLI to install
     required: false
   workspace:
+    description: (optional) DEPRECATED use workspace-id
+    required: false
+  workspace-id:
     description: (optional) The id of the workspace to configure as default for the CLI
     required: false
 runs:
