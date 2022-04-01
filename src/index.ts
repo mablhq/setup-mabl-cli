@@ -60,8 +60,6 @@ async function configureWorkspace(
     cwd: nodePath,
   };
 
-  await exec.exec(`mabl config list`, [], options);
-
   try {
     await exec.exec(`mabl config set workspace ${workspace}`, [], options);
   } catch (error) {
