@@ -41,10 +41,13 @@ async function installCli(nodePath: string, version?: string): Promise<void> {
   const binPrefix = process.platform === 'win32' ? '' : 'bin/';
 
   // --unsafe is required if the installation process needs to build keytar using node-gyp.
-  // There may be no pre-built binaries for keytar on the host OS.
+  // There may be no pre-built binaries for keytar on the host OS. Currently this is the case only
+  // for linux.
+  const unsafeFlag = process.platform === 'linux' ? ' --unsafe' : '';
+
   const installCommand = `./${binPrefix}npm install -g @mablhq/mabl-cli${
     version ? '@' + version : ''
-  } --unsafe`;
+  }${unsafeFlag}`;
 
   const options = {
     cwd: nodePath,
