@@ -7,9 +7,10 @@ type Option<T> = T | undefined;
 async function run(): Promise<void> {
   const version: Option<string> = core.getInput('version', {required: false});
   // Allow new or old syntax - some docs said 'workspace', others said 'workspace_id'
-  const workspaceId: Option<string> = core.getInput('workspace', {required: false})
-    ?? core.getInput('workspace_id', {required: false})
-    ?? core.getInput('workspace-id', {required: false}); // dash case is used by GitHub produced Actions
+  const workspaceId: Option<string> =
+    core.getInput('workspace', {required: false}) ??
+    core.getInput('workspace_id', {required: false}) ??
+    core.getInput('workspace-id', {required: false}); // dash case is used by GitHub produced Actions
 
   const apiKey: Option<string> = process.env.MABL_API_KEY;
 
@@ -38,7 +39,16 @@ async function run(): Promise<void> {
 
 async function installCli(nodePath: string, version?: string): Promise<void> {
   const binPrefix = process.platform === 'win32' ? '' : 'bin/';
-  const installCommand = `./${binPrefix}npm install -g @mablhq/mabl-cli${version ? '@' + version : ''}`
+
+  // --unsafe is required if the installation process needs to build keytar using node-gyp.
+  // There may be no pre-built binaries for keytar on the host OS. Currently this is the case only
+  // for linux.
+  const unsafeFlag = process.platform === 'linux' ? ' --unsafe' : '';
+
+  const installCommand = `./${binPrefix}npm install -g @mablhq/mabl-cli${
+    version ? '@' + version : ''
+  }${unsafeFlag}`;
+
   const options = {
     cwd: nodePath,
   };
