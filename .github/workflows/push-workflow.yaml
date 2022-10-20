@@ -11,10 +11,10 @@ jobs:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          # Use the minimum supported mabl-cli Node.js LTS version here
-          node-version: '12.x'
+#      - uses: actions/setup-node@v3
+#        with:
+#          # Use the minimum supported mabl-cli Node.js LTS version here
+#          node-version: '12.x'
 
       - name: Install dependencies
         run: npm ci
