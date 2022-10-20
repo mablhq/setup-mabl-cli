@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '16.x'
 
       - uses: mablhq/setup-mabl-cli@v1
         with:
@@ -85,7 +85,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '16.x'
 
       - uses: mablhq/setup-mabl-cli@v1
         with:
