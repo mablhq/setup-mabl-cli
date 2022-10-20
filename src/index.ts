@@ -4,6 +4,8 @@ import * as toolCache from '@actions/tool-cache';
 
 type Option<T> = T | undefined;
 
+const TARGET_NODEJS_MAJOR_VERSION=16;
+
 async function run(): Promise<void> {
   const version: Option<string> = core.getInput('version', {required: false});
   // Allow new or old syntax - some docs said 'workspace', others said 'workspace_id'
@@ -79,15 +81,23 @@ async function configureWorkspace(
 
 async function findNode(): Promise<Option<string>> {
   const allNodeVersions = await toolCache.findAllVersions('node');
-  // TODO use the proper version!
-  console.log('Found node versions %j', allNodeVersions);
-  if (!(allNodeVersions && allNodeVersions[0])) {
+  const nodeTargetVersion = allNodeVersions
+    .filter((version: string) => version.startsWith(`${TARGET_NODEJS_MAJOR_VERSION}.`))?.[0];
+
+  if(!nodeTargetVersion) {
     core.setFailed(
-      'No node version installed.  Please add a "actions/setup-node" step to your workflow or install a node version some other way.',
+      `Could not find required Node.js version ${TARGET_NODEJS_MAJOR_VERSION}.x installed. Please add a "actions/setup-node" step to your workflow or install a Node.js version some other way.`,
+    );
+  }
+
+  const nodeVersion = nodeTargetVersion ?? allNodeVersions[0];
+
+  if (!(allNodeVersions && nodeVersion)) {
+    core.setFailed(
+      'No Node.js version installed.  Please add a "actions/setup-node" step to your workflow or install a Node.js version some other way.',
     );
     return;
   }
-  const nodeVersion = allNodeVersions[0];
   core.info(`Found node version ${nodeVersion}.  Installing mabl CLI`);
 
   return toolCache.find('node', nodeVersion);
