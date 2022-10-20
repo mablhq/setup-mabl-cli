@@ -4,7 +4,7 @@ import * as toolCache from '@actions/tool-cache';
 
 type Option<T> = T | undefined;
 
-const TARGET_NODEJS_MAJOR_VERSION=16;
+const REQUIRED_NODEJS_MAJOR_VERSION = 14;
 
 async function run(): Promise<void> {
   const version: Option<string> = core.getInput('version', {required: false});
@@ -82,11 +82,12 @@ async function configureWorkspace(
 async function findNode(): Promise<Option<string>> {
   const allNodeVersions = await toolCache.findAllVersions('node');
   const nodeTargetVersion = allNodeVersions
-    .filter((version: string) => version.startsWith(`${TARGET_NODEJS_MAJOR_VERSION}.`))?.[0];
+    .filter((version: string) => version.startsWith(`${REQUIRED_NODEJS_MAJOR_VERSION}.`))?.[0];
 
-  if(!nodeTargetVersion) {
+  // If Node is installed, but the required version isn't, mark as a failure
+  if(allNodeVersions && allNodeVersions.length > 0 && !nodeTargetVersion) {
     core.setFailed(
-      `Could not find required Node.js version ${TARGET_NODEJS_MAJOR_VERSION}.x installed. Please add a "actions/setup-node" step to your workflow or install a Node.js version some other way.`,
+      `Could not find required Node.js version ${REQUIRED_NODEJS_MAJOR_VERSION}.x installed. This install will fallback to an unsupported version which may not function correctly.`,
     );
   }
 

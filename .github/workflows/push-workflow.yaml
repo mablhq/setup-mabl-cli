@@ -13,7 +13,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          # Use the minimum supported mabl-cli Node.js LTS version here
+          node-version: '12.x'
 
       - name: Install dependencies
         run: npm ci
