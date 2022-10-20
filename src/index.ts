@@ -86,7 +86,7 @@ async function findNode(): Promise<Option<string>> {
 
   // If Node is installed, but the required version isn't, mark as a failure
   if(allNodeVersions && allNodeVersions.length > 0 && !nodeTargetVersion) {
-    core.setFailed(
+    core.warning(
       `Could not find required Node.js version ${REQUIRED_NODEJS_MAJOR_VERSION}.x installed. This install will fallback to an unsupported version which may not function correctly.`,
     );
   }
