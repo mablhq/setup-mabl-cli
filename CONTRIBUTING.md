@@ -40,6 +40,7 @@ git commit -m "<version, e.g. v1.4> release"
 # Tag the release
 git tag <version, e.g. v1.4>
 git push origin <version, e.g. v1.4>
+git push origin release_v1
 ```
 
 ### Releasing
