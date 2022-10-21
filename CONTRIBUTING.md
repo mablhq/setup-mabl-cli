@@ -24,6 +24,13 @@ its own branch, e.g. release_v1.
 Releases can then be built from that branch by running
 
 ```bash
+# Checkout the release branch and merge
+git checkout main
+git pull
+git checkout release_v1
+git pull
+git merge main
+
 # Compile release
 npm run release
 
@@ -48,10 +55,17 @@ is retagged. This way users of the action will pick up the new minor
 version automatically assuming that only the major version is specified.
 
 In short, the major version tag should be
-* deleted (e.g. `git delete -d v1`)
+* deleted (e.g. `git tag -d v1`)
 * pushed (e.g. `git push --delete origin v1`)
 * tagged again (e.g. `git tag v1 1d4a228`)
 * pushed (e.g. `git push origin v1`)
+
+```bash
+git tag -d v1
+git push --delete origin v1
+git tag v1 1d4a228
+git push origin v1
+```
 
 
 

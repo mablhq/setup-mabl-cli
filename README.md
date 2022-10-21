@@ -52,7 +52,6 @@ jobs:
 
       - uses: mablhq/setup-mabl-cli@v1
         with:
-          version: 1.5.6
           workspace-id: V2pvHBJ-rprn1n3S4ELs3A-w
         env:
           MABL_API_KEY: ${{ secrets.MABL_API_KEY }}
