@@ -4,7 +4,7 @@ import * as toolCache from '@actions/tool-cache';
 
 type Option<T> = T | undefined;
 
-const REQUIRED_NODEJS_MAJOR_VERSION = 16;
+const REQUIRED_NODEJS_MAJOR_VERSION = 18;
 
 async function run(): Promise<void> {
   const version: Option<string> = core.getInput('version', {required: false});
