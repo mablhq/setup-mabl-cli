@@ -7,7 +7,7 @@ GitHub action to configure the
 installs and configures the CLI with a mabl API key, if one is provided. Note
 that API keys should be stored as [GitHub secrets](https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-an-organization).
 
-This action requires Node.js 12+ be installed as part of your workflow.
+This action requires Node.js 18+ be installed as part of your workflow.
 The [mabl-cli](https://www.npmjs.com/package/@mablhq/mabl-cli) will be installed into that Node.js runtime.  
 See below for an example of how to install Node.js.
 
@@ -27,8 +27,8 @@ See below for an example of how to install Node.js.
 
 ## Requirements
 
-- Requires Node.js 12+ be installed as a prior step. This is most easily done with
-  the `actions/setup-node@v2` action.
+- Requires Node.js 18+ be installed as a prior step. This is most easily done with
+  the `actions/setup-node@v4` action.
 
 ## Examples
 
@@ -46,9 +46,9 @@ jobs:
     name: Mabl Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '18.x'
 
       - uses: mablhq/setup-mabl-cli@v1
         with:
@@ -60,7 +60,7 @@ jobs:
         run: mabl test-runs export ar5vXBJ-rpan1nSs445s3A-jr -f screenshots.zip
 
       - name: Upload screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: screenshots
           path: screenshots.zip
@@ -83,9 +83,9 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '18.x'
 
       - uses: mablhq/setup-mabl-cli@v1
         with:
